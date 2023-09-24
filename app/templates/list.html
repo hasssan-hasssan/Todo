@@ -1,0 +1,11 @@
+{% for i in todo_list %}
+    {% if i.taskDone %}
+        <strike>
+            <h3>{{ i.text }}</h3>
+        </strike>
+    {% else %}
+        <h3>{{ i.text }}</h3>
+    {% endif %}
+    
+    
+{% endfor %}

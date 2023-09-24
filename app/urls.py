@@ -3,5 +3,6 @@ from app import views
 
 urlpatterns = [
     path('', views.taskList, name='taskList'),
-    path('<int:id>/', views.taskUpdate, name='taskUpdate')
+    path('<int:id>/edit/', views.taskUpdate, name='taskUpdate'),
+    path('<int:id>/del/', views.taskDelete, name='taskDelete' )
 ]

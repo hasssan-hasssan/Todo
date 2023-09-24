@@ -24,7 +24,7 @@
                             </button>
                             <ul class="dropdown-menu">
                               <li><a class="dropdown-item text-warning" href={% url "taskUpdate" todo.id %}>EDIT</a></li>
-                              <li><a class="dropdown-item text-danger" href="#">DELETE</a></li>
+                              <li><a class="dropdown-item text-danger" href={% url "taskDelete" todo.id %}>DELETE</a></li>
                             </ul>
                           </div>
                     </div>

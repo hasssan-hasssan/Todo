@@ -1,11 +1,28 @@
-{% for i in todo_list %}
-    {% if i.taskDone %}
-        <strike>
-            <h3>{{ i.text }}</h3>
-        </strike>
-    {% else %}
-        <h3>{{ i.text }}</h3>
-    {% endif %}
-    
-    
-{% endfor %}
+{% extends "base.html" %}
+{% block content %}
+<div class='container'>
+    <div class='row'>
+        {% for todo in todo_list %}
+            <div class='col-12 col-sm-6'>
+                <div {% if todo.taskDone %}class='card mt-4 opacity-50'{% endif %} class='card mt-4' >
+                    <div class='card-body'>
+                        {% if todo.taskDone %}
+                            <strike>
+                                <h4>{{ todo.text }}</h4>
+                            </strike>
+                        {% else %}
+                            <h4>{{ todo.text }}</h4>
+                        {% endif %}
+                    </div>
+                    <div class='card-footer text-end'>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-warning">Edit</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

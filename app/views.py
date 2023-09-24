@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 
 from app.models import Task
-from app.forms import UpdateTaskForm
+from app.forms import UpdateTaskForm, CreateTaskForm
 
 
 def taskList(request):
@@ -41,3 +41,20 @@ def taskDelete(request, id):
         else:
             messages.success(request, "Task successfully deleted")
             return redirect('taskList')
+        
+        
+def taskCreate(request):
+    user = request.user
+    if request.method == 'POST':
+        form = CreateTaskForm(request.POST)
+        if form.is_valid():
+            new_task = form.save(commit=False)
+            new_task.author = user
+            new_task.save()
+            messages.success(request, 'Task successfully created!')
+            return redirect('taskList')
+    else:
+        form = CreateTaskForm()
+    
+    return render(request, 'create.html', {'form':form, })
+    

@@ -17,3 +17,6 @@ class Task(models.Model):
 class UiSetting(models.Model):
     uiSettings = models.JSONField(null=True, blank=True) # Each user can customize own UI, for example : color, font , radius and etc
     author = models.OneToOneField(User, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"UI Setting of {str(self.author.username)}"

@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block header %}
+    Todo List
+{% endblock header %}
 {% block content %}
 <div class='container'>
     <div class='row'>
@@ -20,7 +23,7 @@
                               MORE
                             </button>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item text-warning" href="#">EDIT</a></li>
+                              <li><a class="dropdown-item text-warning" href={% url "taskUpdate" todo.id %}>EDIT</a></li>
                               <li><a class="dropdown-item text-danger" href="#">DELETE</a></li>
                             </ul>
                           </div>

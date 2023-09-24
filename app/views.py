@@ -3,11 +3,12 @@ from django.contrib import messages
 
 from app.models import Task
 from app.forms import UpdateTaskForm, CreateTaskForm
+from app import strConst
 
 
 def taskList(request):
     user = request.user
-    todo_list = user.task_set.all()
+    todo_list = user.task_set.all().order_by('-create')
     return render(request, 'list.html', {'todo_list':todo_list})
 
 
@@ -17,9 +18,13 @@ def taskUpdate(request, id):
         form = UpdateTaskForm(request.POST, instance=task)
         if form.is_valid:
             task = form.save()
-            task.save()
-            messages.success(request, 'Task successfully updated !')
-            return redirect('taskList')
+            try:
+                task.save()
+                messages.success(request, strConst.TASK_UPDATE_SUCCESS)
+                return redirect('taskList')
+            except:
+                messages.error(request, strConst.TASK_UPDATE_FAIL)
+                return redirect('taskList')
     else:
         form = UpdateTaskForm(instance=task)
         
@@ -30,16 +35,16 @@ def taskDelete(request, id):
     try:
         task = Task.objects.get(id=id)
     except Task.DoesNotExist:
-        messages.error(request, f"Task by ID: {id} does not exist!")
+        messages.error(request, strConst.TASK_NOT_FOUND)
         return redirect('taskList')
     else:
         try:
             task.delete()
         except:
-            messages.error(request, "Delete task failed please try again")
+            messages.error(request, strConst.TASK_DELETE_FAIL)
             return redirect('taskList')
         else:
-            messages.success(request, "Task successfully deleted")
+            messages.success(request, strConst.TASK_DELETE_SUCCESS)
             return redirect('taskList')
         
         
@@ -48,13 +53,18 @@ def taskCreate(request):
     if request.method == 'POST':
         form = CreateTaskForm(request.POST)
         if form.is_valid():
-            new_task = form.save(commit=False)
-            new_task.author = user
-            new_task.save()
-            messages.success(request, 'Task successfully created!')
-            return redirect('taskList')
+            try:
+                new_task = form.save(commit=False)
+                new_task.author = user
+                new_task.save()
+                messages.success(request,strConst.TASK_CREATE_SUCCESS)
+                return redirect('taskList')
+            except:
+                messages.error(request, strConst.TASK_CREATE_FAIL)
+                return redirect('taskList')
     else:
         form = CreateTaskForm()
     
     return render(request, 'create.html', {'form':form, })
-    
+
+   

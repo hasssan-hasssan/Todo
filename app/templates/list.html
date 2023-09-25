@@ -5,45 +5,49 @@
 {% block content %}
 <div class='container'>
     <div class='row'>
-        {% for todo in todo_list %}
-            <div class='col-12 col-sm-6'>
-                <div 
-                {% if todo.taskDone or  todo.card_color != 'default' or todo.font_color != 'default' %}
-                    class='card mt-4 {{ todo.card_color }} {{ todo.font_color }} shadow-sm'
-                {% endif %} 
-                class='card mt-4 shadow-sm' 
-                >
-                    <div class='card-body'>
-                        {% if todo.taskDone %}
-                            <strike>
+        {% if todo_list  %}
+            {% for todo in todo_list %}
+                <div class='col-12'>
+                    <div 
+                    {% if todo.taskDone or  todo.card_color != 'default' or todo.font_color != 'default' %}
+                        class='card mt-4 {{ todo.card_color }} {{ todo.font_color }} shadow-sm'
+                    {% endif %} 
+                    class='card mt-4 shadow-sm'>
+                        <div class='card-body'>
+                            {% if todo.taskDone %}
+                                <strike>
+                                    <h4
+                                    {% if todo.font_family != "default" %}
+                                        style="font-family: {{ todo.font_family }} !important"
+                                    {% endif %}
+                                    >{{ todo.text }}</h4>
+                                </strike>
+                            {% else %}
                                 <h4
                                 {% if todo.font_family != "default" %}
                                     style="font-family: {{ todo.font_family }} !important"
                                 {% endif %}
                                 >{{ todo.text }}</h4>
-                            </strike>
-                        {% else %}
-                            <h4
-                            {% if todo.font_family != "default" %}
-                                style="font-family: {{ todo.font_family }} !important"
                             {% endif %}
-                            >{{ todo.text }}</h4>
-                        {% endif %}
-                    </div>
-                    <div class='card-footer text-end'>
-                        <div class="btn-group-sm" role="group">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                              MORE
-                            </button>
-                            <ul class="dropdown-menu">
-                              <li><a class="dropdown-item text-warning" href={% url "taskUpdate" todo.id %}>EDIT</a></li>
-                              <li><a class="dropdown-item text-danger" href={% url "taskDelete" todo.id %}>DELETE</a></li>
-                            </ul>
-                          </div>
+                        </div>
+                        <div class='card-footer text-end'>
+                            <div class="btn-group-sm" role="group">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                MORE
+                                </button>
+                                <ul class="dropdown-menu">
+                                <li><a class="dropdown-item text-warning" href={% url "taskUpdate" todo.id %}>EDIT</a></li>
+                                <li><a class="dropdown-item text-danger" href={% url "taskDelete" todo.id %}>DELETE</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+                <h1 class='display-5 text-center mt-5'>You dont have any tasks yet!</h1>
+                <p class='text-center mt-3'>For create new task please click on button that there is on left and bottom of the screen</p>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}

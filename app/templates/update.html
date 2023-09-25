@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load bootstrap5 %}
 {% block header %}
-    Update task:  {{ task.text }}
+    Update task:  {{ task.text | truncatewords:3 }}
 {% endblock header %}
 {% block content %}
 

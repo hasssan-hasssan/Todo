@@ -7,3 +7,7 @@ TASK_DELETE_SUCCESS = "Task successfully DELETED !"
 TASK_DELETE_FAIL = "Delete Task has error . Please try again !"
 TASK_NOT_FOUND = "TASK NOT FOUND !"
 TASK_LIST_DOES_NOT_EXIST = "You dont have any Tasks"
+
+# Setting alerts
+SETTING_APPLIED_SUCCESS = "Your settings have been applied successfully !"
+SETTING_APPLIED_FAIL = "Your settings were not applied !"

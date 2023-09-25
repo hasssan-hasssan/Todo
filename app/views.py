@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect
+import json
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.contrib import messages
 
 from app.models import Task
@@ -67,4 +68,7 @@ def taskCreate(request):
     
     return render(request, 'create.html', {'form':form, })
 
-   
+def settingUpdate(request):
+    pass
+    
+    

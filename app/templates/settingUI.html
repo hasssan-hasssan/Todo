@@ -1,33 +1,30 @@
 {% extends "base.html" %}
 {% load bootstrap5 %}
 {% block header %}
-    Update task:  {{ task.text }}
+    UI Setting
 {% endblock header %}
 {% block content %}
 
 <div class='container mt-5'>
     <div class='row justify-content-center'>
-        <div class='col-12 col-sm-10'>
+        <div class='col-12 col-sm-5 '>
             <form method="post">
                 <div class='row'>
-                    <div class='col-12'>
-                        {% bootstrap_field form.text %}
+                    <div class='col-4'>
+                        {% bootstrap_field form.background_color %}
                     </div>
-                    <div class='col-12'>
-                        {% bootstrap_field form.taskDone %}
-                    </div>
-                    <div class='col-12 col-md-4'>
+                    <div class='col-4'>
                         {% bootstrap_field form.card_color %}
                     </div>
-                    <div class='col-12 col-md-4'>
+                    <div class='col-4'>
                         {% bootstrap_field form.font_color %}
                     </div>
-                    <div class='col-12 col-md-4'>
+                    <div class='col-12'>
                         {% bootstrap_field form.font_family %}
                     </div>
                 </div>
-                {% csrf_token %}
-                <input type="submit" value="Update" class='btn btn-primary btn-sm'>
+                {% csrf_token %}                
+                <input type="submit" value="Apply" class='btn btn-primary btn-sm'>
             </form>
         </div>
     </div>

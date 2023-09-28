@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from app.models import Task
-from app.forms import UpdateTaskForm, CreateTaskForm
+from app.forms import UpdateTaskForm, CreateTaskForm, RegisterForm
 from app import strConst
 
 
@@ -13,7 +13,7 @@ def taskList(request):
     todo_list = user.task_set.all().order_by('-create')
     return render(request, 'list.html', {'todo_list':todo_list})
 
-
+@login_required
 def taskUpdate(request, id):
     task = get_object_or_404(Task, id=id)
     if request.method == 'POST':
@@ -32,7 +32,7 @@ def taskUpdate(request, id):
         
     return render(request, 'update.html', {'task':task, 'form':form,})
 
-
+@login_required
 def taskDelete(request, id):
     try:
         task = Task.objects.get(id=id)
@@ -49,7 +49,7 @@ def taskDelete(request, id):
             messages.success(request, strConst.TASK_DELETE_SUCCESS)
             return redirect('taskList')
         
-        
+@login_required        
 def taskCreate(request):
     user = request.user
     if request.method == 'POST':
@@ -70,3 +70,18 @@ def taskCreate(request):
     return render(request, 'create.html', {'form':form, })
 
     
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                messages.success(request, strConst.SIGNUP_SUCCESS)
+                return redirect("taskList")
+            except:
+                messages.error(request, strConst.SIGNUP_FAIL)
+                return redirect("register")
+    else:
+        form = RegisterForm()
+
+    return render(request, "registration/register.html", {"form":form})

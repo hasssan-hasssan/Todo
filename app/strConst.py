@@ -7,3 +7,8 @@ TASK_DELETE_SUCCESS = "Task successfully DELETED !"
 TASK_DELETE_FAIL = "Delete Task has error . Please try again !"
 TASK_NOT_FOUND = "TASK NOT FOUND !"
 TASK_LIST_DOES_NOT_EXIST = "You dont have any Tasks"
+
+
+# User alerts
+SIGNUP_SUCCESS = "Your registration was successful. Now you can log in."
+SIGNUP_FAIL = "Your registration failed. Please try again."
